@@ -125,79 +125,13 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
-    // Normalize fonts across all sheets — force consistent sizing
-    ej.sheets.forEach(function(sheet) {{
-        if (sheet.data) {{
-            for (var r = 0; r < sheet.data.length; r++) {{
-                if (!sheet.data[r]) continue;
-                for (var c = 0; c < sheet.data[r].length; c++) {{
-                    var cell = sheet.data[r][c];
-                    if (cell && typeof cell === 'object') {{
-                        // Normalize font size: headers stay bigger, data cells = 10
-                        if (cell.fs && cell.fs > 12) cell.fs = 12;
-                        if (cell.fs && cell.fs < 9) cell.fs = 10;
-                        if (!cell.fs) cell.fs = 10;
-                        // Normalize font family
-                        if (cell.ff) cell.ff = 'Calibri';
-                    }}
-                }}
-            }}
-        }}
-    }});
-    
-    // Fix column widths — narrow col A, adjust others
+    // Only adjust Analysis & Summary Status column — leave all other widths from xlsx
     ej.sheets.forEach(function(sheet) {{
         if (!sheet.config) sheet.config = {{}};
         if (!sheet.config.columnlen) sheet.config.columnlen = {{}};
         
-        // Col A (index 0): narrow unless it has real data width needs
-        if (!sheet.config.columnlen[0] || sheet.config.columnlen[0] > 140) {{
-            sheet.config.columnlen[0] = 140;
-        }}
-        
-        // Analysis & Summary: col E (index 4) = Status, make thin
         if (sheet.name && sheet.name.indexOf('Analysis') !== -1) {{
-            sheet.config.columnlen[4] = 55;  // Status column
-            sheet.config.columnlen[0] = 120;
-            sheet.config.columnlen[1] = 180;
-            sheet.config.columnlen[2] = 160;
-            sheet.config.columnlen[3] = 180;
-            sheet.config.columnlen[5] = 90;  // Risk Level
-        }}
-        
-        // Financial Statements: tighten col A
-        if (sheet.name && sheet.name.indexOf('Financial') !== -1) {{
-            sheet.config.columnlen[0] = 160;
-        }}
-        
-        // Cash Burn: tighten
-        if (sheet.name && sheet.name.indexOf('Cash Burn') !== -1) {{
-            sheet.config.columnlen[0] = 150;
-        }}
-        
-        // Peer Analysis
-        if (sheet.name && sheet.name.indexOf('Peer') !== -1) {{
-            sheet.config.columnlen[0] = 130;
-        }}
-        
-        // Valuation
-        if (sheet.name && sheet.name.indexOf('Valuation') !== -1) {{
-            sheet.config.columnlen[0] = 130;
-        }}
-        
-        // Management
-        if (sheet.name && sheet.name.indexOf('Management') !== -1) {{
-            sheet.config.columnlen[0] = 130;
-        }}
-        
-        // Company Overview
-        if (sheet.name && sheet.name.indexOf('Company') !== -1) {{
-            sheet.config.columnlen[0] = 140;
-        }}
-        
-        // Claude Log
-        if (sheet.name && sheet.name.indexOf('Claude') !== -1) {{
-            sheet.config.columnlen[0] = 50;
+            sheet.config.columnlen[4] = 55;  // Status column — narrow
         }}
     }});
     
