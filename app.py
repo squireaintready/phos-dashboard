@@ -132,16 +132,20 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
-    // Fix LuckyExcel import bug: font sizes get dropped on many cells
-    // Default to 12pt (the dominant size in this workbook) when fs is missing
+    // Force all cell font sizes to 12pt — LuckyExcel corrupts sizes on import
+    // Only exception: row 1 title gets 14pt
     ej.sheets.forEach(function(sheet) {{
         if (sheet.data) {{
             for (var r = 0; r < sheet.data.length; r++) {{
                 if (!sheet.data[r]) continue;
                 for (var c = 0; c < sheet.data[r].length; c++) {{
                     var cell = sheet.data[r][c];
-                    if (cell && typeof cell === 'object' && (cell.v !== undefined && cell.v !== null && cell.v !== '')) {{
-                        if (!cell.fs) cell.fs = 12;
+                    if (cell && typeof cell === 'object') {{
+                        if (r === 0) {{
+                            cell.fs = 14;
+                        }} else {{
+                            cell.fs = 12;
+                        }}
                     }}
                 }}
             }}
