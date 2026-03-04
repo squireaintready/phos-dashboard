@@ -20,7 +20,10 @@ st.markdown("""
     div[data-testid="stToolbar"], div[data-testid="stDecoration"],
     div[data-testid="stStatusWidget"], section[data-testid="stSidebar"],
     .stApp > header { display: none !important; }
-    .block-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
+    .block-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; top: 0 !important; }
+    div[data-testid="stAppViewBlockContainer"] { padding: 0 !important; margin: 0 !important; }
+    .appview-container { padding: 0 !important; margin: 0 !important; }
+    div[data-testid="stVerticalBlock"] { gap: 0 !important; }
     .stApp { overflow: hidden !important; background: #fff !important; height: 100vh !important; }
     html, body { overflow: hidden !important; height: 100vh !important; margin: 0 !important; padding: 0 !important; }
     .element-container { margin: 0 !important; padding: 0 !important; }
@@ -62,7 +65,7 @@ html,body{{height:100vh;width:100%;overflow:hidden;background:#fff;touch-action:
 .luckysheet-sheets-item{{background:#f0f0f0!important;color:#444!important;border-color:#ccc!important;padding:2px 6px!important;font-size:11px!important;max-width:120px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}}
 .luckysheet-sheets-item-active{{background:#fff!important;color:#1a6b3c!important;border-bottom:2px solid #1a6b3c!important}}
 .luckysheet-sheet-area,.luckysheet-sheet-container{{background:#f5f5f5!important;border-color:#ddd!important}}
-.luckysheet-sheet-area{{position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:9999!important;height:28px!important}}
+.luckysheet-sheet-area{{background:#f5f5f5!important;border-top:1px solid #ddd!important}}
 .luckysheet-toolbar{{background:#f8f8f8!important;border-color:#ddd!important}}
 .luckysheet-toolbar-button{{color:#444!important}}
 .luckysheet-cols-h-cells,.luckysheet-rows-h{{background:#f0f0f0!important;color:#666!important}}
@@ -182,4 +185,4 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
 }});
 </script></body></html>"""
 
-components.html(html, height=2000, scrolling=False)
+components.html(html, height=10000, scrolling=False)
