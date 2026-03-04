@@ -23,7 +23,13 @@ st.markdown("""
     .block-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
     .stApp { overflow: hidden !important; background: #fff !important; }
     .element-container { margin: 0 !important; padding: 0 !important; }
-    iframe { border: none !important; width: 100% !important; }
+    iframe { border: none !important; width: 100% !important; height: 100vh !important; }
+    /* Kill any bottom gap */
+    .stApp > div:first-child { height: 100vh !important; overflow: hidden !important; }
+    div[data-testid="stVerticalBlockBorderWrapper"] { height: 100vh !important; }
+    /* Hide Streamlit manage app footer */
+    .viewerBadge_container__r5tak, .stStatusWidget, 
+    div[class*="manage"], footer { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -47,15 +53,16 @@ html = f"""<!DOCTYPE html><html><head>
 <script src="https://cdn.jsdelivr.net/npm/luckyexcel@1.0.1/dist/luckyexcel.umd.js"></script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
-html,body{{height:100%;width:100%;overflow:hidden;background:#fff;touch-action:manipulation}}
-#luckysheet{{position:absolute;top:0;left:0;right:0;bottom:0}}
+html,body{{height:100vh;width:100%;overflow:hidden;background:#fff;touch-action:manipulation;margin:0;padding:0}}
+#luckysheet{{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh}}
 
 /* Light theme (default) — clean Excel look */
 .luckysheet-wa-editor,.luckysheet-grid-window{{background:#fff!important}}
 .luckysheet-cell-input{{background:#fff!important;color:#222!important}}
-.luckysheet-sheets-item{{background:#f0f0f0!important;color:#444!important;border-color:#ccc!important}}
+.luckysheet-sheets-item{{background:#f0f0f0!important;color:#444!important;border-color:#ccc!important;padding:2px 6px!important;font-size:11px!important;max-width:120px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}}
 .luckysheet-sheets-item-active{{background:#fff!important;color:#1a6b3c!important;border-bottom:2px solid #1a6b3c!important}}
 .luckysheet-sheet-area,.luckysheet-sheet-container{{background:#f5f5f5!important;border-color:#ddd!important}}
+.luckysheet-sheet-area{{position:relative!important;z-index:10!important}}
 .luckysheet-toolbar{{background:#f8f8f8!important;border-color:#ddd!important}}
 .luckysheet-toolbar-button{{color:#444!important}}
 .luckysheet-cols-h-cells,.luckysheet-rows-h{{background:#f0f0f0!important;color:#666!important}}
@@ -175,4 +182,4 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
 }});
 </script></body></html>"""
 
-components.html(html, height=900, scrolling=False)
+components.html(html, height=2000, scrolling=False)
