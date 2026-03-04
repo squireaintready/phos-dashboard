@@ -115,6 +115,62 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
+    // Fix column widths — narrow col A, adjust others
+    ej.sheets.forEach(function(sheet) {{
+        if (!sheet.config) sheet.config = {{}};
+        if (!sheet.config.columnlen) sheet.config.columnlen = {{}};
+        
+        // Col A (index 0): narrow unless it has real data width needs
+        if (!sheet.config.columnlen[0] || sheet.config.columnlen[0] > 140) {{
+            sheet.config.columnlen[0] = 140;
+        }}
+        
+        // Analysis & Summary: col E (index 4) = Status, make thin
+        if (sheet.name && sheet.name.indexOf('Analysis') !== -1) {{
+            sheet.config.columnlen[4] = 55;  // Status column
+            sheet.config.columnlen[0] = 120;
+            sheet.config.columnlen[1] = 180;
+            sheet.config.columnlen[2] = 160;
+            sheet.config.columnlen[3] = 180;
+            sheet.config.columnlen[5] = 90;  // Risk Level
+        }}
+        
+        // Financial Statements: tighten col A
+        if (sheet.name && sheet.name.indexOf('Financial') !== -1) {{
+            sheet.config.columnlen[0] = 160;
+        }}
+        
+        // Cash Burn: tighten
+        if (sheet.name && sheet.name.indexOf('Cash Burn') !== -1) {{
+            sheet.config.columnlen[0] = 150;
+        }}
+        
+        // Peer Analysis
+        if (sheet.name && sheet.name.indexOf('Peer') !== -1) {{
+            sheet.config.columnlen[0] = 130;
+        }}
+        
+        // Valuation
+        if (sheet.name && sheet.name.indexOf('Valuation') !== -1) {{
+            sheet.config.columnlen[0] = 130;
+        }}
+        
+        // Management
+        if (sheet.name && sheet.name.indexOf('Management') !== -1) {{
+            sheet.config.columnlen[0] = 130;
+        }}
+        
+        // Company Overview
+        if (sheet.name && sheet.name.indexOf('Company') !== -1) {{
+            sheet.config.columnlen[0] = 140;
+        }}
+        
+        // Claude Log
+        if (sheet.name && sheet.name.indexOf('Claude') !== -1) {{
+            sheet.config.columnlen[0] = 50;
+        }}
+    }});
+    
     window.addEventListener('resize',function(){{try{{window.luckysheet.resize()}}catch(e){{}}}});
 }});
 </script></body></html>"""
