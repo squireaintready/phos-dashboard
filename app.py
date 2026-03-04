@@ -125,6 +125,26 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
+    // Normalize fonts across all sheets — force consistent sizing
+    ej.sheets.forEach(function(sheet) {{
+        if (sheet.data) {{
+            for (var r = 0; r < sheet.data.length; r++) {{
+                if (!sheet.data[r]) continue;
+                for (var c = 0; c < sheet.data[r].length; c++) {{
+                    var cell = sheet.data[r][c];
+                    if (cell && typeof cell === 'object') {{
+                        // Normalize font size: headers stay bigger, data cells = 10
+                        if (cell.fs && cell.fs > 12) cell.fs = 12;
+                        if (cell.fs && cell.fs < 9) cell.fs = 10;
+                        if (!cell.fs) cell.fs = 10;
+                        // Normalize font family
+                        if (cell.ff) cell.ff = 'Calibri';
+                    }}
+                }}
+            }}
+        }}
+    }});
+    
     // Fix column widths — narrow col A, adjust others
     ej.sheets.forEach(function(sheet) {{
         if (!sheet.config) sheet.config = {{}};
