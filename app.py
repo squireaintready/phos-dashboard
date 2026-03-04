@@ -125,16 +125,6 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
-    // Only adjust Analysis & Summary Status column — leave all other widths from xlsx
-    ej.sheets.forEach(function(sheet) {{
-        if (!sheet.config) sheet.config = {{}};
-        if (!sheet.config.columnlen) sheet.config.columnlen = {{}};
-        
-        if (sheet.name && sheet.name.indexOf('Analysis') !== -1) {{
-            sheet.config.columnlen[4] = 55;  // Status column — narrow
-        }}
-    }});
-    
     window.addEventListener('resize',function(){{try{{window.luckysheet.resize()}}catch(e){{}}}});
 }});
 </script></body></html>"""
