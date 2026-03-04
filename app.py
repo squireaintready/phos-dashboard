@@ -132,22 +132,16 @@ LuckyExcel.transformExcelToLucky(blob,function(ej){{
         loadUrl:'',
         plugins:['chart'],
     }});
-    // Fix Luckysheet import bug: col A font sizes get dropped on some cells
-    // Source xlsx has consistent 12pt — force it where missing
+    // Fix LuckyExcel import bug: font sizes get dropped on many cells
+    // Default to 12pt (the dominant size in this workbook) when fs is missing
     ej.sheets.forEach(function(sheet) {{
         if (sheet.data) {{
             for (var r = 0; r < sheet.data.length; r++) {{
                 if (!sheet.data[r]) continue;
-                // Check col A (index 0) specifically
-                var cell = sheet.data[r][0];
-                if (cell && typeof cell === 'object' && cell.v !== undefined && cell.v !== null && cell.v !== '') {{
-                    if (!cell.fs || cell.fs < 11) cell.fs = 12;
-                }}
-                // Also fix any other cells missing font size
-                for (var c = 1; c < sheet.data[r].length; c++) {{
-                    var d = sheet.data[r][c];
-                    if (d && typeof d === 'object' && d.v !== undefined && d.v !== null && d.v !== '') {{
-                        if (!d.fs) d.fs = 12;
+                for (var c = 0; c < sheet.data[r].length; c++) {{
+                    var cell = sheet.data[r][c];
+                    if (cell && typeof cell === 'object' && (cell.v !== undefined && cell.v !== null && cell.v !== '')) {{
+                        if (!cell.fs) cell.fs = 12;
                     }}
                 }}
             }}
