@@ -21,7 +21,7 @@ st.markdown("""
     div[data-testid="stStatusWidget"], section[data-testid="stSidebar"],
     .stApp > header { display: none !important; }
     .block-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
-    .stApp { overflow: hidden !important; }
+    .stApp { overflow: hidden !important; background: #fff !important; }
     .element-container { margin: 0 !important; padding: 0 !important; }
     iframe { border: none !important; width: 100% !important; }
 </style>
@@ -47,29 +47,33 @@ html = f"""<!DOCTYPE html><html><head>
 <script src="https://cdn.jsdelivr.net/npm/luckyexcel@1.0.1/dist/luckyexcel.umd.js"></script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
-html,body{{height:100%;width:100%;overflow:hidden;background:#0e1117;touch-action:manipulation}}
+html,body{{height:100%;width:100%;overflow:hidden;background:#fff;touch-action:manipulation}}
 #luckysheet{{position:absolute;top:0;left:0;right:0;bottom:0}}
-.luckysheet-wa-editor,.luckysheet-grid-window{{background:#0e1117!important}}
-.luckysheet-cell-input{{background:#1a1a2e!important;color:#fff!important}}
-.luckysheet-sheets-item{{background:#1a1a2e!important;color:#ccc!important;border-color:#333!important}}
-.luckysheet-sheets-item-active{{background:#0f3460!important;color:#fff!important}}
-.luckysheet-sheet-area,.luckysheet-sheet-container{{background:#0e1117!important;border-color:#333!important}}
-.luckysheet-toolbar{{background:#0e1117!important;border-color:#333!important}}
-.luckysheet-toolbar-button{{color:#ccc!important}}
-.luckysheet-cols-h-cells,.luckysheet-rows-h{{background:#16213e!important;color:#888!important}}
-.luckysheet-scrollbar-x,.luckysheet-scrollbar-y{{background:#1a1a2e!important}}
-.luckysheet-stat-area{{background:#0e1117!important;color:#888!important;border-color:#333!important}}
-.luckysheet-input-box{{background:#1a1a2e!important;color:#fff!important;border-color:#333!important}}
-.luckysheet-wa-functionbox{{background:#0e1117!important;border-color:#333!important}}
-.luckysheet-wa-functionbox-cancel,.luckysheet-wa-functionbox-confirm{{background:#1a1a2e!important;color:#ccc!important}}
-.luckysheet-name-box{{background:#1a1a2e!important;color:#fff!important;border-color:#333!important}}
-.luckysheet-toolbar-menu-line{{border-color:#333!important}}
-.luckysheet-cell-selected{{border-color:#e94560!important}}
-.luckysheet-column-selected,.luckysheet-row-selected{{background:rgba(233,69,96,0.1)!important}}
-.luckysheet-cols-menu,.luckysheet-rightclick-menu{{background:#1a1a2e!important;border-color:#333!important;color:#ccc!important}}
-.luckysheet-cols-menuitem:hover,.luckysheet-rightclick-menu-item:hover{{background:#0f3460!important}}
-.luckysheet-modal-dialog{{background:#1a1a2e!important;border-color:#333!important;color:#ccc!important}}
-.luckysheet-modal-dialog-title-text{{color:#fff!important}}
+
+/* Light theme (default) — clean Excel look */
+.luckysheet-wa-editor,.luckysheet-grid-window{{background:#fff!important}}
+.luckysheet-cell-input{{background:#fff!important;color:#222!important}}
+.luckysheet-sheets-item{{background:#f0f0f0!important;color:#444!important;border-color:#ccc!important}}
+.luckysheet-sheets-item-active{{background:#fff!important;color:#1a6b3c!important;border-bottom:2px solid #1a6b3c!important}}
+.luckysheet-sheet-area,.luckysheet-sheet-container{{background:#f5f5f5!important;border-color:#ddd!important}}
+.luckysheet-toolbar{{background:#f8f8f8!important;border-color:#ddd!important}}
+.luckysheet-toolbar-button{{color:#444!important}}
+.luckysheet-cols-h-cells,.luckysheet-rows-h{{background:#f0f0f0!important;color:#666!important}}
+.luckysheet-scrollbar-x,.luckysheet-scrollbar-y{{background:#eee!important}}
+.luckysheet-stat-area{{background:#f5f5f5!important;color:#666!important;border-color:#ddd!important}}
+.luckysheet-input-box{{background:#fff!important;color:#222!important;border-color:#ccc!important}}
+.luckysheet-wa-functionbox{{background:#f8f8f8!important;border-color:#ddd!important}}
+.luckysheet-wa-functionbox-cancel,.luckysheet-wa-functionbox-confirm{{background:#f0f0f0!important;color:#444!important}}
+.luckysheet-name-box{{background:#fff!important;color:#222!important;border-color:#ccc!important}}
+.luckysheet-toolbar-menu-line{{border-color:#ddd!important}}
+.luckysheet-cell-selected{{border-color:#1a73e8!important}}
+.luckysheet-column-selected,.luckysheet-row-selected{{background:rgba(26,115,232,0.08)!important}}
+.luckysheet-cols-menu,.luckysheet-rightclick-menu{{background:#fff!important;border-color:#ddd!important;color:#333!important;box-shadow:0 2px 8px rgba(0,0,0,0.15)!important}}
+.luckysheet-cols-menuitem:hover,.luckysheet-rightclick-menu-item:hover{{background:#e8f0fe!important}}
+.luckysheet-modal-dialog{{background:#fff!important;border-color:#ddd!important;color:#333!important}}
+.luckysheet-modal-dialog-title-text{{color:#222!important}}
+.luckysheet-grid-window-1{{background:#fff!important}}
+table.luckysheet-cell-flow{{color:#222!important}}
 @media(max-width:768px){{
     .luckysheet-toolbar{{overflow-x:auto!important;white-space:nowrap!important;-webkit-overflow-scrolling:touch}}
     .luckysheet-toolbar-button{{padding:2px 3px!important;min-width:24px!important}}
